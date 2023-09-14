@@ -17,3 +17,19 @@ Storage.prototype.getProductsFromStorage = function (){
     }
     return products;
 }
+
+
+Storage.prototype.deleteProductFromStorage = function (productTitle){
+
+    let products = this.getProductsFromStorage();
+    products.forEach(function (product,index){
+       products.splice(index,1); // sadece seçilen elemanı silmek için
+
+        localStorage.setItem("products",JSON.stringify(products)); //local storageı güncellemek için
+    });
+}
+
+
+Storage.prototype.clearAllProductsFromStorage = function (){
+    localStorage.removeItem("products");
+}

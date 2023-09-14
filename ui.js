@@ -39,10 +39,11 @@ UI.prototype.displayMessage = function (message,type){
 }
 
 UI.prototype.loadAllProducts = function (products){
-    const productList = document.getElementById(products);
+    const productList = document.getElementById("products");
 
     products.forEach(function (product){
-        productList.innerHTML += `<tr>
+            productList.innerHTML +=
+                `<tr>
         <td><img src="${product.url}" class="img-fluid img-thumbnail" style="width: 30%; height: 30%; "></td>
         <td>${product.title}</td>
         <td>${product.price}</td>
@@ -52,3 +53,17 @@ UI.prototype.loadAllProducts = function (products){
 }
 
 
+UI.prototype.deleteProductFromUI = function (element) {
+    //silme işlemi ebeveynde olacak. td üstündeki tr ebeveyni
+    element.parentElement.parentElement.remove();
+}
+
+UI.prototype.clearAllProductsFromUI = function (){
+    const productList = document.getElementById("products") //elemanların hepsini seçmek için
+
+    // productList.innetHTML = "";
+
+    while(productList.firstElementChild !== null){
+        productList.firstElementChild.remove();
+    }
+}

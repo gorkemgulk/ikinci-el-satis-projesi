@@ -6,6 +6,10 @@ const priceElement = document.querySelector("#price");
 
 const urlElement = document.querySelector("#url");
 
+const cardBody = document.querySelectorAll(".card-body")[1]; //2.elemanı seçtik.
+
+const clear = document.getElementById("clear-products");
+
 
 //UI Objesini Başlatma
 const ui = new UI();
@@ -24,6 +28,10 @@ function eventListeners() {
         let products = storage.getProductsFromStorage();
         ui.loadAllProducts(products);
     });
+
+    cardBody.addEventListener("click",deleteProduct);
+
+    clear.addEventListener("click",deleteAllProducts);
 }
 
 function addProduct(e){
@@ -45,3 +53,22 @@ function addProduct(e){
     e.preventDefault();
 }
 
+
+function deleteProduct(e){
+    if(e.target.id === "delete-product"){ //eğer delete-product butonuna tıklandıysa
+        ui.deleteProductFromUI(e.target);
+
+        // console.log(e.target.parentElement.previousElementSibling.previousElementSibling.textContent) -- kardeşine ulaşmak için
+
+      storage.deleteProductFromStorage(e.target.parentElement.previousElementSibling.previousElementSibling.textContent);
+
+      ui.displayMessage("Silme İşlemi Başarıyla Gerçekleşti.","success");
+     }
+}
+
+function deleteAllProducts(e){
+    if(confirm("Tüm ürünleri silmek istediğinizden emin misiniz?")) {
+        ui.clearAllProductsFromUI();
+        storage.clearAllProductsFromStorage();
+    }
+}
